@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{571c013a-9693-4365-8566-6eb524b6bed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{3a5eba81-55d0-48ca-968d-74413d7628c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\pybind11">
+      <UniqueIdentifier>{1e5a3360-6f8a-44e2-9381-104956c78c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\pybind11\detail">
+      <UniqueIdentifier>{22fabe81-9afd-40bb-8296-5750a6ec6af2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DesktopController.cpp" />
+    <ClCompile Include="src\DesktopIcon.cpp" />
+    <ClCompile Include="src\Util.cpp" />
+    <ClCompile Include="src\DesktopController_pybind11.cpp" />
+    <ClCompile Include="src\DesktopIcon_pybind11.cpp" />
+    <ClCompile Include="src\Util_pybind11.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\DesktopController.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DesktopIcon.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Util.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\attr.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\buffer_info.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\cast.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\chrono.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\common.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\complex.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\eigen.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\embed.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\eval.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\functional.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\iostream.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\numpy.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\operators.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\options.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\pybind11.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\pytypes.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\stl.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\stl_bind.h">
+      <Filter>thirdparty\pybind11</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\detail\class.h">
+      <Filter>thirdparty\pybind11\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\detail\common.h">
+      <Filter>thirdparty\pybind11\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\detail\descr.h">
+      <Filter>thirdparty\pybind11\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\detail\init.h">
+      <Filter>thirdparty\pybind11\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\detail\internals.h">
+      <Filter>thirdparty\pybind11\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pybind11\detail\typeid.h">
+      <Filter>thirdparty\pybind11\detail</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
