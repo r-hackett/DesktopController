@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{d1fcff27-40c7-47da-87c1-84cce3e72e37}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\fmt\chrono.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\color.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\compile.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\core.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\format.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\format-inl.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\locale.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\os.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\ostream.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\posix.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\printf.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\ranges.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="format.cc" />
+    <ClCompile Include="os.cc" />
+  </ItemGroup>
+</Project>

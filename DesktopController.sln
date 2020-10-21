@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopController", "DesktopController\DesktopController.vcxproj", "{7800F622-1E14-4526-A65D-F7464A3E9BDD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopSnake", "DesktopSnake\DesktopSnake.vcxproj", "{CDBE715C-4151-4C9D-964A-20804AD89517}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ListIcons", "ListIcons\ListIcons.vcxproj", "{1A54CF54-9C00-4419-B9AC-405BD79CFB28}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fmtlib", "fmtlib\fmtlib.vcxproj", "{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		pybind11_debug|x64 = pybind11_debug|x64
+		pybind11_debug|x86 = pybind11_debug|x86
+		pybind11_release|x64 = pybind11_release|x64
+		pybind11_release|x86 = pybind11_release|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Debug|x64.ActiveCfg = Debug|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Debug|x64.Build.0 = Debug|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Debug|x86.ActiveCfg = Debug|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Debug|x86.Build.0 = Debug|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_debug|x64.ActiveCfg = pybind11_debug|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_debug|x64.Build.0 = pybind11_debug|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_debug|x86.ActiveCfg = pybind11_debug|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_debug|x86.Build.0 = pybind11_debug|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_release|x64.ActiveCfg = pybind11_release|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_release|x64.Build.0 = pybind11_release|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_release|x86.ActiveCfg = pybind11_release|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.pybind11_release|x86.Build.0 = pybind11_release|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Release|x64.ActiveCfg = Release|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Release|x64.Build.0 = Release|x64
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Release|x86.ActiveCfg = Release|Win32
+		{7800F622-1E14-4526-A65D-F7464A3E9BDD}.Release|x86.Build.0 = Release|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Debug|x64.ActiveCfg = Debug|x64
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Debug|x64.Build.0 = Debug|x64
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Debug|x86.ActiveCfg = Debug|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Debug|x86.Build.0 = Debug|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.pybind11_debug|x64.ActiveCfg = Debug|x64
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.pybind11_debug|x86.ActiveCfg = Release|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.pybind11_debug|x86.Build.0 = Release|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.pybind11_release|x64.ActiveCfg = Release|x64
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.pybind11_release|x86.ActiveCfg = Release|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.pybind11_release|x86.Build.0 = Release|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Release|x64.ActiveCfg = Release|x64
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Release|x64.Build.0 = Release|x64
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Release|x86.ActiveCfg = Release|Win32
+		{CDBE715C-4151-4C9D-964A-20804AD89517}.Release|x86.Build.0 = Release|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Debug|x64.ActiveCfg = Debug|x64
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Debug|x64.Build.0 = Debug|x64
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Debug|x86.ActiveCfg = Debug|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Debug|x86.Build.0 = Debug|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.pybind11_debug|x64.ActiveCfg = Debug|x64
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.pybind11_debug|x86.ActiveCfg = Release|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.pybind11_debug|x86.Build.0 = Release|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.pybind11_release|x64.ActiveCfg = Release|x64
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.pybind11_release|x86.ActiveCfg = Release|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.pybind11_release|x86.Build.0 = Release|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Release|x64.ActiveCfg = Release|x64
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Release|x64.Build.0 = Release|x64
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Release|x86.ActiveCfg = Release|Win32
+		{1A54CF54-9C00-4419-B9AC-405BD79CFB28}.Release|x86.Build.0 = Release|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Debug|x64.ActiveCfg = Debug|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Debug|x64.Build.0 = Debug|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Debug|x86.ActiveCfg = Debug|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Debug|x86.Build.0 = Debug|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x64.ActiveCfg = Release|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x64.Build.0 = Release|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x86.ActiveCfg = Release|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x86.Build.0 = Release|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x64.ActiveCfg = Release|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x64.Build.0 = Release|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x86.ActiveCfg = Release|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x86.Build.0 = Release|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Release|x64.ActiveCfg = Release|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Release|x64.Build.0 = Release|x64
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Release|x86.ActiveCfg = Release|Win32
+		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2D2B13E-3D92-41B3-9745-B24DD308701A}
+	EndGlobalSection
+EndGlobal
