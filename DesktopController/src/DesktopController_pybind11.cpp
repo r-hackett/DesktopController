@@ -32,6 +32,9 @@ void DesktopController_pybind11(py::module& m)
         .def("allIcons", &DesktopController::allIcons, "Get all desktop icons present on the desktop.")
         .def("folderFlags", &DesktopController::folderFlags, "Get the current desktop folder flags.")
         .def("cursorPosition", &DesktopController::cursorPosition, "Get the current position of the cursor.")
+        .def("desktopResolution", &DesktopController::desktopResolution, "Get the resolution of the desktop.")
+        .def("iconSpacing", &DesktopController::iconSpacing, "Get the dimensions of desktop icons in pixels, including surrounding whitespace.")
+        .def("repositionIcons", &DesktopController::repositionIcons, "Set the position of one or more icons.")
         .def("refresh", &DesktopController::refresh, "Notify the system that the contents of the desktop folder has changed.");
 }
 

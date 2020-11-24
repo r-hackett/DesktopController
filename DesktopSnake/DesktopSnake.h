@@ -14,9 +14,9 @@
 
 #include <fmt/core.h>
 
-using namespace DeskCtrlUtil;
+using namespace DcUtil;
 
-// Enable this to play a classic game a snake in which icons are 
+// Enable this to play a classic game of snake in which icons are 
 // added to the desktop as food when all other icons are consumed.
 #if 1
 #define ADD_FOOD_ICONS
@@ -30,7 +30,7 @@ public:
     DesktopSnake(double iconUpdatesPerSecond = 25, double gameStepsPerSecond = 1000);
     ~DesktopSnake();
 
-    // Disable copy constructor.
+    // Disable copying.
     DesktopSnake(const DesktopSnake&) = delete;
     void operator=(const DesktopSnake&) = delete;
 
@@ -39,16 +39,19 @@ public:
     bool gameOver() const { return isGameOver; }
 
 private:
+    using GameObjectVec = std::vector<std::unique_ptr<GameObject>>;
+
     void handleBoundaries();    // Boundary conditions (reaching edge of screen).
     void handleInput();         // Keyboard input.
     void handleEvents();        // Events that happen periodically.
     void handleCollision();     // Collision (eating food and snake colliding with self).
 
-    void consumeFood(std::vector<std::shared_ptr<GameObject>>::iterator foodIt);
+    void consumeFood(GameObjectVec::iterator foodIt);
 
     void addChangeDirectionEvent(const GameObjectMoveEvent& event);
     void prepareAndAddChangeDirectionEvent(MoveDirection curDirection, MoveDirection newDirection);
 
+    // Returns true if adding an icon to the back of the snake would be OOB of the desktop.
     bool addingIconWouldGoOOB();
 
     bool handleKey(long virtualKey);
@@ -59,20 +62,18 @@ private:
     // Returns the adjacent icon's position given a position and direction (e.g. icon to the right)
     Vec2<double> adjacentIconPositionFromDirection(const Vec2<double>& position, MoveDirection dir);
 
-    std::vector<std::shared_ptr<GameObject>>::iterator testObjCollision(
-        const GameObject& obj, 
-        std::vector<std::shared_ptr<GameObject>>& objList, 
-        size_t startIndex = 0);
+    GameObjectVec::iterator testObjCollision(const GameObject& obj, GameObjectVec& objList, size_t startIndex = 0);
+    bool testAABBIconCollision(const Vec2<int>& objA, const Vec2<int>& objB);
 
     bool dirChangeWouldCauseCollision();
 
     void updateIconPositions();
 
     DesktopController dc;
-    std::vector<std::shared_ptr<GameObject>> snake;
-    std::vector<std::shared_ptr<GameObject>> food;
-    DeskCtrlUtil::Vec2<int> deskRes;
-    DeskCtrlUtil::Vec2<int> iconSpacing;
+    GameObjectVec snake;
+    GameObjectVec food;
+    DcUtil::Vec2<int> deskRes;
+    DcUtil::Vec2<int> iconSpacing;
     bool isGameOver;
 
     // Specifies the frequency of icon (real desktop) positional updates 
@@ -84,7 +85,7 @@ private:
 
 #ifdef ADD_FOOD_ICONS
     std::wstring randomFileExtension();
-    std::wstring findUniqueDesktopFilename();
+    std::wstring findUniqueDesktopFilename();   // Find a unique filename in the desktop folder with random file extension.
     void addDesktopFoodIcon();
 
     std::wstring desktopDirPath;

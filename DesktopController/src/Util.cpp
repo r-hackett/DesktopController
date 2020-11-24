@@ -7,16 +7,8 @@
 
 using namespace std;
 
-namespace DeskCtrlUtil
+namespace DcUtil
 {
-    int randomInt(int min, int max)
-    {
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> distr(min, max);
-        return distr(gen);
-    }
-
     string wstringToOem(const wstring& s)
     {
         auto buf = make_unique<char[]>(s.length() + 1);

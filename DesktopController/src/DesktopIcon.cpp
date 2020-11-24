@@ -2,7 +2,7 @@
 #include "DesktopIcon.h"
 
 using namespace std;
-using namespace DeskCtrlUtil;
+using namespace DcUtil;
 
 DesktopIcon::DesktopIcon(
     IShellFolder* shellFolderArg,

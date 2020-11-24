@@ -3,7 +3,7 @@
 #include <fmt/core.h>
 
 using namespace std;
-using namespace DeskCtrlUtil;
+using namespace DcUtil;
 
 void printIconDetails(size_t index, const DesktopIcon& icon)
 {
@@ -19,7 +19,6 @@ int main()
     {
         DesktopController dc;
 
-        // Icons can be iterated over one by one.
         fmt::print("Enumerating desktop icons:\n");
         dc.enumerateIcons(
             [](const DesktopIcon* icon)
@@ -29,14 +28,12 @@ int main()
             }
         );
 
-        // Alternatively, shared pointers to icons can be retrieved.
         fmt::print("\nRetrieving pointers to desktop icons:\n");
-        vector<shared_ptr<DesktopIcon>> icons = dc.allIcons();
+        vector<unique_ptr<DesktopIcon>> icons = dc.allIcons();
         for (size_t i = 0; i < icons.size(); ++i)
             printIconDetails(i+1, *icons[i]);
 
-        // Icons can be searched for by name.
-        shared_ptr<DesktopIcon> recycleBin = dc.iconByName(L"Recycle Bin");
+        unique_ptr<DesktopIcon> recycleBin = dc.iconByName(L"Recycle Bin");
         if (recycleBin)
             fmt::print("\nFound Recycle Bin on desktop");
     }

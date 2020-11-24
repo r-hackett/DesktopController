@@ -72,11 +72,9 @@ Global
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Debug|x86.ActiveCfg = Debug|Win32
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Debug|x86.Build.0 = Debug|Win32
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x64.ActiveCfg = Release|x64
-		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x64.Build.0 = Release|x64
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x86.ActiveCfg = Release|Win32
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_debug|x86.Build.0 = Release|Win32
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x64.ActiveCfg = Release|x64
-		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x64.Build.0 = Release|x64
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x86.ActiveCfg = Release|Win32
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.pybind11_release|x86.Build.0 = Release|Win32
 		{BC04FA54-69A4-4A81-BBDA-8DE2AE90A007}.Release|x64.ActiveCfg = Release|x64

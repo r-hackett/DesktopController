@@ -2,9 +2,9 @@
 
 using namespace std;
 
-GameObject::GameObject(const shared_ptr<DesktopIcon>& deskIcon, MoveDirection dir, int boundaryCrossCnt)
+GameObject::GameObject(unique_ptr<DesktopIcon> deskIcon, MoveDirection dir, int boundaryCrossCnt)
     : directionVector(Vec2<double>(0.0, 0.0))
-    , icon(deskIcon)
+    , icon(std::move(deskIcon))
     , boundaryCrossCount(boundaryCrossCnt)
     , distanceTravelled(0.0)
 {
@@ -28,7 +28,7 @@ void GameObject::setDirection(MoveDirection dir)
     lastChangeDirPosition = position;
     direction = dir;
 
-    // Velocity must be set to 1 in either x or y.
+    // Velocity must be set to 1 in either x or y here.
     switch (direction)
     {
     case MoveDirection::Up:     directionVector = Vec2<double>(0.0, -1.0); break;

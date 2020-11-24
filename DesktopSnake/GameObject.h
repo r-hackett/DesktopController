@@ -7,7 +7,7 @@
 #include <deque>
 #include <vector>
 
-using namespace DeskCtrlUtil;
+using namespace DcUtil;
 
 enum class MoveDirection
 {
@@ -43,28 +43,30 @@ struct GameObjectMoveEvent
     int boundaryCrossCountTarget;
 };
 
-// Copyable.
+// Copyable. Everything is on display here. There is no additional logic
+// that needs to be added to access these members so they can be public without issue.
 struct GameObject
 {
-    GameObject(const std::shared_ptr<DesktopIcon>& deskIcon, MoveDirection dir, int boundaryCrossCnt = 0);
+    // Note: This constructor takes ownership of deskIcon.
+    GameObject(std::unique_ptr<DesktopIcon> deskIcon, MoveDirection dir = MoveDirection::Static, int boundaryCrossCnt = 0);
 
-    // This is the only function that should call DesktopIcon::Reposition.
     void step();
-
     void setDirection(MoveDirection dir);
 
     Vec2<double> position;
     Vec2<double> directionVector;
     MoveDirection direction;
-    std::shared_ptr<DesktopIcon> icon;
+    std::unique_ptr<DesktopIcon> icon;
 
     // Queue of events for changing direction.
     std::deque<GameObjectMoveEvent> changeDirEventsQueue;
 
-    // Events waiting to be added to the queue. This is used when parts of the snake 
+    // Events waiting to be added to the queue. 
+    // This is used when parts of the snake 
     // have passed through the screen's boundary and other parts haven't, therefore 
     // requiring that events are only added to the queue when the objects further back 
-    // have also passed through the boundary.
+    // have also passed through the boundary. Pending events are added to the event queue
+    // when the event's boundaryCrossCountTarget matches a GameObject boundaryCrossCount.
     std::deque<GameObjectMoveEvent> pendingChangeDirEventsQueue;
 
     // Incremented each time a boundary is crossed.

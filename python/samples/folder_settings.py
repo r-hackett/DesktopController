@@ -1,9 +1,9 @@
-import deskctrl as dc
+import deskctrl
 
 try:
-    desk = dc.DesktopController()
+    dc = deskctrl.DesktopController()
 
-    flags = desk.folderFlags()
+    flags = dc.folderFlags()
     
     print("Snap to grid:", flags.snapToGrid)
     print("Auto arrange:", flags.autoArrange)

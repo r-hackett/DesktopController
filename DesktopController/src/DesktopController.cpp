@@ -2,9 +2,10 @@
 #include "DesktopIcon.h"
 
 #include <iostream>
+#include <ShellScalingApi.h>
 
 using namespace std;
-using namespace DeskCtrlUtil;
+using namespace DcUtil;
 
 DesktopController::DesktopController() 
 {
@@ -18,6 +19,8 @@ DesktopController::DesktopController()
     result = folderview->GetFolder(IID_PPV_ARGS(&shellfolder));
     if (!SUCCEEDED(result))
         throwHRESULTException("GetFolder", result);
+
+    SetHighDpiAwareness();
 }
 
 DesktopController::~DesktopController()
@@ -65,8 +68,8 @@ void DesktopController::findDesktopFolderView(CComPtr<IShellView> shellViewArg, 
         throwHRESULTException("QueryInterface", result);
 }
 
-// NOTE: pybind11 doesn't recognise a reference to DesktopIcon (const DesktopIcon&) here, 
-// instead it ignores the reference and attempts to copy, so a pointer will have to do.
+// NOTE: pybind11 doesn't recognise a reference to DesktopIcon here, instead it 
+// ignores the reference and attempts to copy, so a pointer will have to do.
 void DesktopController::enumerateIcons(const function<void(const DesktopIcon*)>& callback)
 {
     if (!callback)
@@ -80,14 +83,13 @@ void DesktopController::enumerateIcons(const function<void(const DesktopIcon*)>&
     // Note: itemid is freed by the destructor of DesktopIcon.
     for (CComHeapPtr<ITEMID_CHILD> itemid; idlist->Next(1, &itemid, nullptr) == S_OK; )
     {
-        DesktopIcon icon(shellfolder, folderview, itemid);
-
         // Construct a DesktopIcon and pass to the caller.
+        DesktopIcon icon(shellfolder, folderview, itemid);
         callback(&icon);
     }
 }
 
-shared_ptr<DesktopIcon> DesktopController::iconByName(const wstring& name)
+unique_ptr<DesktopIcon> DesktopController::iconByName(const wstring& name)
 {
     CComPtr<IEnumIDList> idlist;
     HRESULT result = folderview->Items(SVGIO_ALLVIEW, IID_PPV_ARGS(&idlist));
@@ -99,23 +101,23 @@ shared_ptr<DesktopIcon> DesktopController::iconByName(const wstring& name)
     {
         wstring displayName = shellFolderObjNameToStrW(shellfolder, itemid);
         if (displayName == name)
-            return make_shared<DesktopIcon>(shellfolder, folderview, itemid);
+            return make_unique<DesktopIcon>(shellfolder, folderview, itemid);
     }
 
-    return shared_ptr<DesktopIcon>(nullptr);
+    return unique_ptr<DesktopIcon>(nullptr);
 }
 
-vector<shared_ptr<DesktopIcon>> DesktopController::allIcons()
+vector<unique_ptr<DesktopIcon>> DesktopController::allIcons()
 {
     CComPtr<IEnumIDList> idlist;
     HRESULT result = folderview->Items(SVGIO_ALLVIEW, IID_PPV_ARGS(&idlist));
     if (!SUCCEEDED(result))
         throwHRESULTException("Items", result);
 
-    vector<shared_ptr<DesktopIcon>> icons;
+    vector<unique_ptr<DesktopIcon>> icons;
 
     for (CComHeapPtr<ITEMID_CHILD> itemid; idlist->Next(1, &itemid, nullptr) == S_OK;)
-        icons.push_back(make_shared<DesktopIcon>(shellfolder, folderview, itemid));
+        icons.push_back(make_unique<DesktopIcon>(shellfolder, folderview, itemid));
 
     return icons;
 }
@@ -135,7 +137,7 @@ wstring DesktopController::shellFolderObjNameToStrW(IShellFolder* shellFolderArg
     return wstring(name);
 }
 
-void DesktopController::repositionIcons(const vector<shared_ptr<DesktopIcon>>& icons, vector<Vec2<int>>& points)
+void DesktopController::repositionIcons(const vector<DesktopIcon*>& icons, vector<Vec2<int>>& points)
 {
     if (icons.size() != points.size())
         throw runtime_error("Argument size mismatch in DesktopController::repositionIcons");
@@ -146,7 +148,7 @@ void DesktopController::repositionIcons(const vector<shared_ptr<DesktopIcon>>& i
 
     vector<POINT> pointsv;
     for (auto& pt : points)
-        pointsv.push_back({ pt.x, pt.y });    // TODO: Is assuming the format of the POINT structure safe?
+        pointsv.push_back({ pt.x, pt.y });
 
     HRESULT result = folderview->SelectAndPositionItems(
         static_cast<UINT>(icons.size()),
@@ -169,10 +171,8 @@ string DesktopController::errorIdToMessage(DWORD id)
 
     message = std::string(buffer, size);
 
-    //Free the buffer.
     LocalFree(buffer);
 
-    // Remove newlines. 
     message.erase(std::remove(message.begin(), message.end(), '\n'), message.end());
 
     return message;
@@ -257,17 +257,121 @@ FOLDERSETTINGS DesktopController::folderSettings() const
 {
     FOLDERSETTINGS settings;
     HRESULT result = shellview->GetCurrentInfo(&settings);
-
-    settings.ViewMode = folderview->GetAutoArrange();
-
     if (!SUCCEEDED(result))
         throwHRESULTException("GetCurrentInfo", result);
+
     return settings;
 }
 
 void DesktopController::refresh()
 {
     SHChangeNotify(SHCNE_UPDATEDIR, SHCNF_PATH | SHCNF_FLUSHNOWAIT, desktopDirectory().c_str(), NULL);
+}
+
+// TODO: DPI awareness should be set in the manifest. Need to work out the details since this is compiled in 
+// to a static and shared library.
+void DesktopController::SetHighDpiAwareness()
+{
+    // At least Windows 8.1 is required to load Shcore.dll (for Set/GetProcessDpiAwareness).
+    // TODO: Is setting DPI awareness necessary (or even possible) on earlier Windows versions?
+    if (Win81OrNewer())
+    {
+        HINSTANCE hinst = LoadLibrary(L"Shcore.dll");
+
+        if (hinst != NULL)
+        {
+            typedef HRESULT(STDAPICALLTYPE* GET_DPI_AWARE_PROC)(HANDLE, PROCESS_DPI_AWARENESS*);
+            typedef HRESULT(STDAPICALLTYPE* SET_DPI_AWARE_PROC)(PROCESS_DPI_AWARENESS);
+
+            GET_DPI_AWARE_PROC GetProcessDpiAwareness_DLL =
+                (GET_DPI_AWARE_PROC)GetProcAddress(hinst, "GetProcessDpiAwareness");
+
+            SET_DPI_AWARE_PROC SetProcessDpiAwareness_DLL =
+                (SET_DPI_AWARE_PROC)GetProcAddress(hinst, "SetProcessDpiAwareness");
+
+            PROCESS_DPI_AWARENESS dpiAwareness;
+
+            if (NULL != GetProcessDpiAwareness_DLL)
+            {
+                HRESULT result = GetProcessDpiAwareness_DLL(NULL, &dpiAwareness);
+
+                if (!SUCCEEDED(result))
+                    throwHRESULTException("GetProcessDpiAwareness_DLL", result);
+            }
+            else
+            {
+                throw runtime_error("Failed to load GetProcessDpiAwareness_DLL from Shcore.dll");
+            }
+
+            if (NULL != SetProcessDpiAwareness_DLL)
+            {
+                if (dpiAwareness == PROCESS_DPI_UNAWARE)
+                {
+                    // Set DPI awareness for 1-to-1 pixel control.
+                    HRESULT result = SetProcessDpiAwareness_DLL(PROCESS_SYSTEM_DPI_AWARE);
+                    if (result == E_INVALIDARG)
+                        throwHRESULTException("SetProcessDpiAwareness", result);
+                }
+            }
+            else
+            {
+                throw runtime_error("Failed to load SetProcessDpiAwareness from Shcore.dll");
+            }
+
+            if (!FreeLibrary(hinst))
+                throwLastError("FreeLibrary");
+        }
+        else
+        {
+            throw runtime_error("LoadLibrary failed to load Shcore.dll");
+        }
+    }
+    else
+    {
+        cout << "Warning: At least Windows 8.1 is required to set DPI awareness." << endl;
+    }
+}
+
+bool DesktopController::Win81OrNewer()
+{
+    DWORD majorVersion, minorVersion;
+    std::tie(majorVersion, minorVersion) = getWindowsVersion();
+
+    if (majorVersion == 6 && minorVersion >= 3)
+        return true;
+    else if (majorVersion > 6)
+        return true;
+    return false;
+}
+
+std::pair<DWORD, DWORD> DesktopController::getWindowsVersion()
+{
+    OSVERSIONINFOEXW os;
+
+    typedef void (WINAPI* RtlGetVersion_FUNC) (OSVERSIONINFOEXW*);
+    RtlGetVersion_FUNC RtlGetVersion_DLL;
+
+    HMODULE hmod = LoadLibrary(TEXT("ntdll.dll"));
+    if (hmod)
+    {
+        RtlGetVersion_DLL = (RtlGetVersion_FUNC)GetProcAddress(hmod, "RtlGetVersion");
+        if (RtlGetVersion_DLL == NULL)
+        {
+            FreeLibrary(hmod);
+            throw runtime_error("Failed to get pointer to RtlGetVersion.");
+        }
+        ZeroMemory(&os, sizeof(os));
+        os.dwOSVersionInfoSize = sizeof(os);
+        RtlGetVersion_DLL(&os);
+    }
+    else
+    {
+        throw runtime_error("Failed to load ntdll.dll.");
+    }
+
+    FreeLibrary(hmod);
+
+    return make_pair(os.dwMajorVersion, os.dwMinorVersion);
 }
 
 // deskctrl pybind11 module definition.
