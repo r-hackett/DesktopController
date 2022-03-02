@@ -25,9 +25,3 @@ Documentation can be viewed online at [deskctrl.web.app](https://deskctrl.web.ap
 ## Demo
 
 ![DesktopSnake](demo/snake.gif)
-
-## TODO
-
-* Testing for different systems and different versions of Windows.
-* More samples.
-* Inclusion in PyPi.
